@@ -1,3 +1,9 @@
+//print path as well as cycle
+//if path is make cycle add *
+//only path add .
+
+
+
 
 #include<bits/stdc++.h>
 using namespace std;
