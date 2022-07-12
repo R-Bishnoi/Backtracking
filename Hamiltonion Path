@@ -1,0 +1,87 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+
+ vector<string>pc;
+
+//cycle = "*"
+//path = "."
+
+ void dfs(int src,vector<vector<int>>&adj,unordered_map<int,int>&vis,string s,int org,int n){
+     
+    if(vis.size()==n-1){
+    
+        bool cls_edge=false;
+        
+        for(auto y:adj[src]){
+            if(y==org){
+                cls_edge=true;
+                break;
+            }
+        }
+        
+       if(cls_edge)s=s+"*";
+       else s=s+".";
+       pc.push_back(s);
+     
+     s.pop_back(); 
+       return ;
+        
+    }
+    
+
+   //mark the node visited 
+     vis[src]++;
+    
+
+    for(auto x:adj[src]){
+        
+        if(vis.find(x)==vis.end()){
+            dfs(x,adj,vis,s+to_string(x),org,n);
+        
+        }
+    }
+    
+
+    vis.erase(src);
+
+     
+ }
+
+
+
+int main(){
+    
+    int v,e;
+    cin>>v>>e;
+   
+   unordered_map<int,int>vis; 
+  vector<vector<int>>adj(v+1);  
+    
+  for(int i=0;i<e;i++){
+      int a,b;
+      cin>>a>>b;
+      adj[a].push_back(b);
+      adj[b].push_back(a);
+  }
+  
+  string s="";
+ 
+int src;
+cin>>src;
+//int src=1;
+     dfs(src,adj,vis,s+to_string(src),src,v);
+
+ 
+ 
+ 
+ for(int j=0;j<pc.size();j++){
+     for(int k=0;k<pc[j].size();k++){
+         cout<<pc[j][k]<<" ";
+     }
+     cout<<endl;
+ }
+   
+    
+    return 0;
+}
